@@ -1,0 +1,4 @@
+# Default behaviour, for users core.autocrlf not set
+* text=auto
+
+gen_config.sh text eol=lf

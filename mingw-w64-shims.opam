@@ -1,0 +1,34 @@
+opam-version: "2.0"
+synopsis: "Configuration for the mingw-w64 Cygwin packages in opam"
+description: """
+The mingw-w64 ports of OCaml require access to both GCC and the assembler. This
+package performs two tasks. Firstly, it adds the directory containing the
+runtime DLLS to PATH; for example, a typical Cygwin installation requires
+C:\\cygwin64\\usr\\x86_64-w64-mingw32\\sys-root\\mingw\\bin
+to be added to PATH.
+
+Secondly, for opam's internally managed Cygwin installation, it installs shim
+executables to provide the cygpath utility along with all tool-prefixed
+programs from the -gcc-core, -gcc-g++ and -binutils packages from the
+mingw64-i686 and mingw64-x86_64 package sets."""
+maintainer: "David Allsopp <david@tarides.com>"
+authors: "David Allsopp"
+license: "CC0-1.0+"
+homepage: "https://opam.ocaml.org"
+bug-reports: "https://github.com/ocaml/opam-repository/issues"
+flags: conf
+# os = "win32" & os-distribution = "cygwin" => opam-version >= "2.2.0"
+available: os = "win32" & os-distribution = "cygwin"
+build: [
+  # i686-gcc-core must appear before x86_64-gcc-core in this list
+  ["sh" "./gen_config.sh" name
+        "i686-binutils" {conf-mingw-w64-gcc-i686:installed}
+        "i686-gcc-core" {conf-mingw-w64-gcc-i686:installed}
+        "x86_64-binutils" {conf-mingw-w64-gcc-x86_64:installed}
+        "x86_64-gcc-core" {conf-mingw-w64-gcc-x86_64:installed}]
+]
+depends: ("conf-mingw-w64-gcc-x86_64" | "conf-mingw-w64-gcc-i686")
+setenv: [
+  [ PATH += "%{_:runtime-x86_64}%" ]
+  [ PATH += "%{_:runtime-i686}%" ]
+]
