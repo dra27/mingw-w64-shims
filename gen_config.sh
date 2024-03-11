@@ -16,7 +16,12 @@ packages='-l'
 opam_escape='s/\\/\\\\/g;s/%/%%/g;s/"/\\"/g'
 
 for atom in $*; do
-  packages="$packages mingw64-$atom"
+  case $atom in
+    *-false)
+      ;;
+    *)
+      packages="$packages mingw64-${atom%-true}";;
+  esac
 
   if [ x"${atom#*-}" = 'xgcc-core' ]; then
     arch="${atom%-gcc-core}"
