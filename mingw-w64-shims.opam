@@ -17,9 +17,9 @@ authors: "David Allsopp"
 license: "CC0-1.0+"
 homepage: "https://opam.ocaml.org"
 bug-reports: "https://github.com/ocaml/opam-repository/issues"
-flags: conf
 # os = "win32" & os-distribution = "cygwin" => opam-version >= "2.2.0"
 available: os = "win32" & os-distribution = "cygwin"
+dev-repo: "git+https://github.com/dra27/mingw-w64-shims.git"
 build: [
   # i686-gcc-core must appear before x86_64-gcc-core in this list
   ["sh" "./gen_config.sh" name
