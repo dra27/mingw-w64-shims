@@ -19,6 +19,10 @@ for atom in $*; do
   case $atom in
     *-false)
       ;;
+    pkgconf)
+      # Most of the packages need to be prefixed 'mingw64-', the ones which
+      # don't are explicitly listed here
+      packages="$packages $atom";;
     *)
       packages="$packages mingw64-${atom%-true}";;
   esac

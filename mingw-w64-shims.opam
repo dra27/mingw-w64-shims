@@ -28,12 +28,14 @@ build: [
         "i686-gcc-g++-%{?conf-mingw-w64-g++-i686:installed:}%"
         "x86_64-binutils" {conf-mingw-w64-gcc-x86_64:installed}
         "x86_64-gcc-core" {conf-mingw-w64-gcc-x86_64:installed}
-        "x86_64-gcc-g++-%{?conf-mingw-w64-g++-x86_64:installed:}%"]
+        "x86_64-gcc-g++-%{?conf-mingw-w64-g++-x86_64:installed:}%"
+        "pkgconf" {conf-pkg-config:installed}]
 ]
 depends: ("conf-mingw-w64-gcc-x86_64" | "conf-mingw-w64-gcc-i686")
 depopts: [
   "conf-mingw-w64-g++-i686"
   "conf-mingw-w64-g++-x86_64"
+  "conf-pkg-config"
 ]
 setenv: [
   [ PATH += "%{_:runtime-x86_64}%" ]
