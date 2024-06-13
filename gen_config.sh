@@ -60,9 +60,15 @@ variables {
 }
 EOF
 
-cygwin_root="$(cygpath -w /)"
-if [ x"$OPAMROOT\\.cygwin\\root" = x"$cygwin_root" ]; then
-  # opam with an internal Cygwin installation - generate a .install file
+cygwin_pkg_mgr="$(opam --cli=2.2 option sys-pkg-manager-cmd | \
+                  sed -e 's/\] \[/]\n[/g' | \
+                  sed -ne 's/\]\+$//;/^\[\?\["cygwin"/s/\[*"cygwin" //p')"
+if [ -n "$cygwin_pkg_mgr" ]; then
+  # opam with a managed Cygwin PATH (i.e. opam adds this Cygwin's bin
+  # directory when building packages). In this case shims are required and
+  # we generate a .install file.
+
+  cygwin_root="$(cygpath -w /)"
 
   "$gcc" "-DCYGWIN_ROOT=$cygwin_root" -DUNICODE -nostdlib -Os \
          -Wl,-entry=$entry -o shim.exe shim.c -lkernel32
