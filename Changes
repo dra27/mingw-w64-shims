@@ -1,0 +1,11 @@
+2024-06-19 David Allsopp <david.allsopp -at- metastack.com>
+  Version 0.2.0
+* Shim pkgconf.exe if conf-pkg-config is installed (allows dune-configurator to
+  access it from outside of a package installation).
+* Create shim executables for any non-PATH installation of Cygwin. In
+  particular, this allows ocaml/setup-ocaml@v3 to function correctly (it uses
+  `--cygwin-location` so that Cygwin is stored separately from the opam root).
+
+2024-03-11 David Allsopp <david.allsopp -at- metastack.com>
+  Version 0.1.0
+* Initial release.
