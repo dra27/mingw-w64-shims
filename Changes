@@ -1,3 +1,9 @@
+????-??-?? David Allsopp <dra27 -at- dra27.uk>
+  Next
+* New write-config.sh script for producing opam .config files. Allows variables
+  and file-depends to be specified as a command line, while handling both the
+  production of checksums and escaping of values.
+
 2024-06-19 David Allsopp <david.allsopp -at- metastack.com>
   Version 0.2.0
 * Shim pkgconf.exe if conf-pkg-config is installed (allows dune-configurator to
