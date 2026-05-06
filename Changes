@@ -3,6 +3,10 @@
 * New write-config.sh script for producing opam .config files. Allows variables
   and file-depends to be specified as a command line, while handling both the
   production of checksums and escaping of values.
+* Switch the packaging model from one monolithic mingw-w64-shims package such
+  that each individual package creates its own shims. In particular, following
+  downstream fixes in opam repository, it means that installing shims one-by-one
+  no longer causes a recompilation of all packages in the switch.
 
 2024-06-19 David Allsopp <david.allsopp -at- metastack.com>
   Version 0.2.0

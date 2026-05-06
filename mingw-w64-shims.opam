@@ -1,43 +1,29 @@
 opam-version: "2.0"
-version: "0.2.1~dev"
+version: "1.0.0~dev"
 synopsis: "Configuration for the mingw-w64 Cygwin packages in opam"
 description: """
-The mingw-w64 ports of OCaml require access to both GCC and the assembler. This
-package performs two tasks. Firstly, it adds the directory containing the
-runtime DLLS to PATH; for example, a typical Cygwin installation requires
-C:\\cygwin64\\usr\\x86_64-w64-mingw32\\sys-root\\mingw\\bin
-to be added to PATH.
+The mingw-w64 ports of OCaml require access to GCC, the assembler and binutils.
+This set of packages performs two tasks. Firstly, it ensures that the directory
+containing the runtime DLLS are added to PATH. A typical Cygwin installation
+requires C:\\cygwin64\\usr\\x86_64-w64-mingw32\\sys-root\\mingw\\bin to be added
+to PATH, for example.
 
-Secondly, for opam's internally managed Cygwin installation, it installs shim
+Secondly, for opam's internally managed Cygwin installation, they install shim
 executables to provide the cygpath utility along with all tool-prefixed
 programs from the -gcc-core, -gcc-g++ and -binutils packages from the
-mingw64-i686 and mingw64-x86_64 package sets."""
-maintainer: "David Allsopp <david@tarides.com>"
+mingw64-i686 and mingw64-x86_64 package sets.
+
+In earlier versions of mingw-w64-shims, the mingw-w64-shims package formed part
+of this set. Installing mingw-w64-shims is no longer necessary."""
+maintainer: "David Allsopp <dra27@dra27.uk>"
+x-maintenance-intent: ["(latest)"]
 authors: "David Allsopp"
 license: "CC0-1.0+"
 homepage: "https://opam.ocaml.org"
 bug-reports: "https://github.com/ocaml/opam-repository/issues"
-# os = "win32" & os-distribution = "cygwin" => opam-version >= "2.2.0"
 available: os = "win32" & os-distribution = "cygwin"
 dev-repo: "git+https://github.com/dra27/mingw-w64-shims.git"
-build: [
-  # i686-gcc-core must appear before x86_64-gcc-core in this list
-  ["sh" "./gen_config.sh" name
-        "i686-binutils" {conf-mingw-w64-gcc-i686:installed}
-        "i686-gcc-core" {conf-mingw-w64-gcc-i686:installed}
-        "i686-gcc-g++-%{?conf-mingw-w64-g++-i686:installed:}%"
-        "x86_64-binutils" {conf-mingw-w64-gcc-x86_64:installed}
-        "x86_64-gcc-core" {conf-mingw-w64-gcc-x86_64:installed}
-        "x86_64-gcc-g++-%{?conf-mingw-w64-g++-x86_64:installed:}%"
-        "pkgconf" {conf-pkg-config:installed}]
-]
-depends: ("conf-mingw-w64-gcc-x86_64" | "conf-mingw-w64-gcc-i686")
-depopts: [
-  "conf-mingw-w64-g++-i686"
-  "conf-mingw-w64-g++-x86_64"
-  "conf-pkg-config"
-]
-setenv: [
-  [ PATH += "%{_:runtime-x86_64}%" ]
-  [ PATH += "%{_:runtime-i686}%" ]
-]
+depends:
+  "host-arch-x86_32" & "conf-mingw-w64-gcc-i686" {post} |
+  "host-arch-x86_64" & "conf-mingw-w64-gcc-x86_64" {post}
+flags: conf

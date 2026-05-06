@@ -1,7 +1,7 @@
 # Default behaviour, for users with core.autocrlf not set
 * text=auto
 
-gen_config.sh text eol=lf
+install-shim.sh text eol=lf
 write-config.sh text eol=lf
 
 # Exclude infrastructure files from the tarballs

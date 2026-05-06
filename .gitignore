@@ -1,4 +1,5 @@
 *.swp
 *.o
 *.config
+!conf-mingw-w64-gcc-*.config
 *.install
