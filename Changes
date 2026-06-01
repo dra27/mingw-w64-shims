@@ -1,5 +1,5 @@
-????-??-?? David Allsopp <dra27 -at- dra27.uk>
-  Next
+2026-06-01 David Allsopp <dra27 -at- dra27.uk>
+  Version 1.0.0
 * New write-config.sh script for producing opam .config files. Allows variables
   and file-depends to be specified as a command line, while handling both the
   production of checksums and escaping of values.
