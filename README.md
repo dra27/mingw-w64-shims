@@ -16,7 +16,7 @@ bin directory.
 
 # Compilation
 
-See `gen_config.sh`. The shim executable is compiled with:
+See `install-shim.sh`. The shim executable is compiled with:
 
 ```console
 $ x86_64-w64-mingw32-gcc '-DCYGWIN_ROOT=C:\cygwin64' -DUNICODE -nostdlib -Os \
@@ -37,14 +37,13 @@ _outside_ Cygwin, but not inside it).
 
 # opam package
 
-`gen_config.sh` is intended for use in [opam-repository][], but it compiles
+`install-shim.sh` is intended for use in [opam-repository][], but it compiles
 shim.c and generates opam .config and .install files.
 
-The mingw-w64-shims package requires one of the mingw-w64 C compilers and uses
-`cygcheck` to install a copy of `shim.exe` for each binary installed by the
-mingw-w64 packages which are wrapped in opam-repository.
-
-The package also ensure that the mingw-w64 runtime bin directory is added to
-PATH.
+Each conf-mingw-w64- package which requires shim'd executables uses this script,
+with the conf-mingw-w64-gcc- also ensuring that the mingw-w64 runtime bin
+directory is added to PATH. Earlier versions of this package did this in the
+mingw-w64-shims package itself, but this is no longer required, and the
+mingw-w64-shims opam package itself no longer exists.
 
 [opam-repository]: https://github.com/ocaml/opam-repository
