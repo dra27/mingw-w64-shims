@@ -126,7 +126,8 @@ EOF
           exit 1;;
       esac
       if test -e "$package.config-list"; then
-        var_value="$(sed -e '$d;'"$escape" "$package.config-list" | paste -sd' ')"
+        var_value="$(sed -e '$d;'"$escape" "$package.config-list" \
+                       | paste -s -d ' ' -)"
         case "$var_type" in
           list) var_value="[$var_value]";;
         esac
