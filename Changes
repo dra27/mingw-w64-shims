@@ -1,5 +1,5 @@
-????-??-?? David Allsopp <dra27 -at- dra27.uk>
-  Next
+2026-06-02 David Allsopp <dra27 -at- dra27.uk>
+  Version 1.0.1
 * Fix non-portability use of paste in write-config.sh
 
 2026-06-01 David Allsopp <dra27 -at- dra27.uk>
